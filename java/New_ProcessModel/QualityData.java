@@ -1,14 +1,21 @@
 package New_ProcessModel;
 
+import java.util.List;
+
+
 import org.eclipse.basyx.aas.metamodel.api.parts.asset.AssetKind;
-import org.eclipse.basyx.aas.metamodel.map.AssetAdministrationShell;
-import org.eclipse.basyx.aas.metamodel.map.descriptor.CustomId;
-import org.eclipse.basyx.aas.metamodel.map.parts.Asset;
 import org.eclipse.basyx.submodel.metamodel.api.identifier.IdentifierType;
-import org.eclipse.basyx.submodel.metamodel.map.Submodel;
-import org.eclipse.basyx.submodel.metamodel.map.identifier.Identifier;
-import org.eclipse.basyx.submodel.metamodel.map.submodelelement.SubmodelElementCollection;
 import org.eclipse.basyx.submodel.metamodel.map.submodelelement.dataelement.property.Property;
+import org.eclipse.basyx.submodel.metamodel.map.submodelelement.SubmodelElementCollection;
+import org.eclipse.basyx.aas.metamodel.map.AssetAdministrationShell;
+import org.eclipse.basyx.aas.metamodel.map.parts.Asset;
+import org.eclipse.basyx.submodel.metamodel.map.identifier.Identifier;
+import org.eclipse.basyx.submodel.metamodel.map.qualifier.LangStrings;
+
+import org.eclipse.basyx.submodel.metamodel.map.Submodel;
+import java.util.ArrayList;
+
+import Helper.AASHelper;
 
 public class QualityData extends Procedure{
     public static void main(String[] args) {
@@ -38,7 +45,6 @@ public class QualityData extends Procedure{
         Property WarningLimit = new Property("WarningLimit", "Das ist das Warning Limit1");
         Property ControlLimit = new Property("ControlLimit", "Das ist das Control Limit");
         Property InspectionEquipement = new Property("InspectionEquipement", "Das ist das Inspection Equipement");
-        QualityFeature1.add(FeatureType, Function, UnitType, TargetValue, Tolerance, WarningLimit, ControlLimit, InspectionEquipement);
 
     }
 
@@ -50,8 +56,11 @@ public class QualityData extends Procedure{
         }
     }
 
-    public static void addQualityFeaturestoAAS(Submodel QualityData, SubmodelElementCollection Features, List<SubmodelElementCollection> QualityFeatures){
+    public static void addQualityFeaturestoAAS(Submodel QualityData, SubmodelElementCollection Features, List<SubmodelElementCollection> QualityFeatures,
+                                               Property FeatureType, Property Function, Property UnitType, Property TargetValue, Property Tolerance,
+                                               Property WarningLimit, Property ControlLimit, Property InspectionEquipement){
         for(SubmodelElementCollection QualityFeature : QualityFeatures){
+            QualityFeauture.addSubmodelElement(FeatureType, Function, UnitType, TargetValue, Tolerance, WarningLimit, ControlLimit, InspectionEquipement);
             Features.addSubmodelElement(QualityFeature);
         }
     }
