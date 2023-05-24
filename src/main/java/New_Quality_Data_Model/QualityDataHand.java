@@ -1,4 +1,4 @@
-package New_ProcessModel;
+package New_Quality_Data_Model;
 
 import org.eclipse.basyx.aas.metamodel.api.parts.asset.AssetKind;
 import org.eclipse.basyx.aas.metamodel.map.AssetAdministrationShell;
@@ -21,7 +21,7 @@ public class QualityData {
         Submodel QualityData = new Submodel();
         QualityDataShell.addSubmodel(QualityData);
 
-        Procedure Prozedur1 = new Procedure("Id Prozedur 1", "Das ist die Prozedur 1", )
+        Procedure Prozedur1 = new Procedure("Id Prozedur 1", "Das ist die Prozedur 1", );
         SubmodelElementCollection Prozedur1 = new SubmodelElementCollection();
         Prozedur1.addSubmodelElement(FeaturesProzedur1);
 

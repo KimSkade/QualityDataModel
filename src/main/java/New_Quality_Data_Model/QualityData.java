@@ -1,7 +1,6 @@
-package New_ProcessModel;
+package New_Quality_Data_Model;
 
 import java.util.List;
-
 
 import org.eclipse.basyx.aas.metamodel.api.parts.asset.AssetKind;
 import org.eclipse.basyx.submodel.metamodel.api.identifier.IdentifierType;
@@ -15,7 +14,7 @@ import org.eclipse.basyx.submodel.metamodel.map.qualifier.LangStrings;
 import org.eclipse.basyx.submodel.metamodel.map.Submodel;
 import java.util.ArrayList;
 
-import Helper.AASHelper;
+import ProcessProcedure.*;
 
 public class QualityData extends Procedure{
     public static void main(String[] args) {
