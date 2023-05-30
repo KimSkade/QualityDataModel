@@ -19,7 +19,7 @@
 
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
-		<finalName>aas-hackathon</finalName>
+		<finalName>qualitydatamodel</finalName>
 
 		<plugins>
 			<!-- Compile Sources using Java 8 -->
