@@ -45,7 +45,6 @@ public class QualityTest {
             fullProvider.addSubmodel(submodelProvider);
         }
         return fullProvider;
-
     }
 
     public static void startServerWithInMemoryRegistry(MultiSubmodelProvider fullProvider,
