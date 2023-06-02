@@ -1,6 +1,6 @@
 package QualityData;
 
-import Helper.ServerAASX;
+
 import org.eclipse.basyx.aas.metamodel.api.parts.asset.AssetKind;
 import org.eclipse.basyx.aas.metamodel.map.AssetAdministrationShell;
 import org.eclipse.basyx.aas.metamodel.map.descriptor.CustomId;
@@ -15,6 +15,7 @@ import java.util.List;
 
 
 
+
 public class QualityDataHand {
     public static void main(String[] args) {
 
@@ -24,8 +25,8 @@ public class QualityDataHand {
                 new Identifier(), QualityDataAsset);
 
         Submodel QualityData = new Submodel();
-        List<Submodel> Submodel = new ArrayList<>();
-        Submodel.add(QualityData);
+        List<Submodel> SubmodelListe = new ArrayList<>();
+        SubmodelListe.add(QualityData);
 
 
         // Procedure Prozedur1 = new Procedure("Id Prozedur 1", "Das ist die Prozedur 1",  );
@@ -94,12 +95,7 @@ public class QualityDataHand {
 
         QualityDataShell.addSubmodel(QualityData);
 
-
-
-        ServerAASX.pushAAS(QualityDataShell, Submodel, "http://193.196.37.23:4001/aasServer/shells/", "http://193.196.37.23:4000/registry/api/v1/registry");
     }
-
-
 
 
 }
