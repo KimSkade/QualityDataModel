@@ -21,7 +21,16 @@ public class QualityData {
     }
 
 
-    public static SubmodelElementCollection createResultSubmodelElementCollection(int value,  Object measuredate, boolean resultcheck) { //ToDo resultcheck sollte automatisiert werden
+    public static SubmodelElementCollection createResultSubmodelElementCollection(int value,  Object measuredate, int tolerance, int targetValue) { //Toleranz & TargetValue muss hier für Resultcheck übergeben werden
+
+        boolean resultcheck;
+
+        if ((targetValue-tolerance) <= value && value <= (targetValue+tolerance)) {
+            resultcheck = true;
+        } else {
+            resultcheck = false;
+        }
+
         List<Property> properties = new ArrayList<>();
         properties.add(new Property("Value", value));
         properties.add(new Property("MeasureDate", measuredate));
@@ -143,7 +152,7 @@ public class QualityData {
     }
 
     public static void main(String[] args) {
-        SubmodelElementCollection result = createResultSubmodelElementCollection(10,20/01/2021, true);
+        SubmodelElementCollection result = createResultSubmodelElementCollection(10,20/01/2021, 1, 10);
         SubmodelElementCollection SampleData = createSampleDataSubmodelElementCollection(result, 12344, 20/01/2023, 3);
         SubmodelElementCollection SampleBatch = createSampleBatchSubmodelElementCollection(SampleData, 5);
         SubmodelElementCollection References = createReferencesSubmodelElementCollection();
