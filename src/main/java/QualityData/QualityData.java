@@ -23,12 +23,12 @@ public class QualityData {
 
 
     public static SubmodelElementCollection createResultSubmodelElementCollection
-            (double value, Object measuredate, double tolerance, double targetValue) {  //ToDo: Datenformat measuredate
+            (double value, Object measuredate, double uppertolerance, double lowertolerance, double targetValue) {  //ToDo: Datenformat measuredate
         //Toleranz & TargetValue muss hier für Resultcheck übergeben werden
 
         boolean resultcheck;
 
-        resultcheck = (targetValue - tolerance) <= value && value <= (targetValue + tolerance);
+        resultcheck = (targetValue + lowertolerance) <= value && value <= (targetValue + uppertolerance);
 
         List<Property> properties = new ArrayList<>();
         properties.add(new Property("Value", value));
@@ -79,14 +79,15 @@ public class QualityData {
 
     public static SubmodelElementCollection createQualityFeatureNameSubmodelElementCollection
             (SubmodelElementCollection SampleBatch, String featureType, String function, String unit, double targetValue,
-             double tolerance, double warningLimit, double controlLimit, SubmodelElementCollection References,
+             double uppertolerance, double lowertolerance, double warningLimit, double controlLimit, SubmodelElementCollection References,
              String inspectionEquipment) {
         List<Property> properties = new ArrayList<>();
         properties.add(new Property("FeatureType", featureType));
         properties.add(new Property("Function", function));
         properties.add(new Property("Unit", unit));
         properties.add(new Property("TargetValue", targetValue));
-        properties.add(new Property("Tolerance", tolerance));
+        properties.add(new Property("lowerTolerance", lowertolerance));
+        properties.add(new Property("upperTolerance", uppertolerance));
         properties.add(new Property("WaringLimit", warningLimit));
         properties.add(new Property("ControlLimit", controlLimit));
         properties.add(new Property("InspectionEquipment", inspectionEquipment));
@@ -163,13 +164,13 @@ public class QualityData {
 
     public static void main(String[] args) {
         SubmodelElementCollection result = createResultSubmodelElementCollection(10, 20 / 2021,
-                1, 10);
+                1, -1, 10);
         SubmodelElementCollection SampleData = createSampleDataSubmodelElementCollection(result, 12344,
                 20 / 2023, 3);
         SubmodelElementCollection SampleBatch = createSampleBatchSubmodelElementCollection(SampleData, 5);
         SubmodelElementCollection References = createReferencesSubmodelElementCollection();
         SubmodelElementCollection QualityFeatureName = createQualityFeatureNameSubmodelElementCollection(SampleBatch,
-                "Test", "Test", "mm", 10,1, 1, 1,
+                "Test", "Test", "mm", 10,1, -1, 1, 1,
                 References, "Equipment1");
         SubmodelElementCollection Features = createFeaturesSubmodelElementCollection(QualityFeatureName);
         SubmodelElementCollection ProductionProcedures = createProductionProceduresSubmodelElementCollection(Features);

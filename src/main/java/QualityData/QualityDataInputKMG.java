@@ -26,7 +26,8 @@ public class QualityDataInputKMG {
             SubmodelElementCollection result = QualityData.createResultSubmodelElementCollection(
                     Double.parseDouble(DataInput.getValueFromTableByColumnAndRow(dateipfad, "actual", i)),
                     12 / 01 / 2023,
-                    2,
+                    Double.parseDouble(DataInput.getValueFromTableByColumnAndRow(dateipfad, "uppertol", i)),
+                    Double.parseDouble(DataInput.getValueFromTableByColumnAndRow(dateipfad, "lowertol", i)),
                     Double.parseDouble(DataInput.getValueFromTableByColumnAndRow(dateipfad, "nominal", i)));
             result.setIdShort("result" + i);
             resultCollection.add(result);
@@ -52,7 +53,8 @@ public class QualityDataInputKMG {
                     DataInput.getValueFromTableByColumnAndRow(dateipfad, "type", i),
                     DataInput.getValueFromTableByColumnAndRow(dateipfad, "unit", i),
                     Double.parseDouble(DataInput.getValueFromTableByColumnAndRow(dateipfad, "nominal", i)),
-                    1, //TODO in create lower und upper Tolleranz einbauen & resultCheck abändern
+                    Double.parseDouble(DataInput.getValueFromTableByColumnAndRow(dateipfad, "uppertol", i)),
+                    Double.parseDouble(DataInput.getValueFromTableByColumnAndRow(dateipfad, "lowertol", i)),
                     Double.parseDouble(DataInput.getValueFromTableByColumnAndRow(dateipfad, "warningLimitCF", i)),
                     1, ReferencesCollection.get(i - 1), "Equipment1");
             QualityFeatureName.setIdShort("QualityFeatureName" + i);
