@@ -11,6 +11,7 @@ import org.eclipse.basyx.submodel.metamodel.map.submodelelement.SubmodelElementC
 import org.eclipse.basyx.submodel.metamodel.map.submodelelement.dataelement.property.Property;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class QualityData {
@@ -21,15 +22,13 @@ public class QualityData {
     }
 
 
-    public static SubmodelElementCollection createResultSubmodelElementCollection(int value,  Object measuredate, int tolerance, int targetValue) { //Toleranz & TargetValue muss hier für Resultcheck übergeben werden
+    public static SubmodelElementCollection createResultSubmodelElementCollection
+            (double value, Object measuredate, double tolerance, double targetValue) {  //ToDo: Datenformat measuredate
+        //Toleranz & TargetValue muss hier für Resultcheck übergeben werden
 
         boolean resultcheck;
 
-        if ((targetValue-tolerance) <= value && value <= (targetValue+tolerance)) {
-            resultcheck = true;
-        } else {
-            resultcheck = false;
-        }
+        resultcheck = (targetValue - tolerance) <= value && value <= (targetValue + tolerance);
 
         List<Property> properties = new ArrayList<>();
         properties.add(new Property("Value", value));
@@ -44,7 +43,8 @@ public class QualityData {
         return result;
     }
 
-    public static SubmodelElementCollection createSampleDataSubmodelElementCollection(SubmodelElementCollection result, int sampleNumber,  Object sampledate, int partcounter) {
+    public static SubmodelElementCollection createSampleDataSubmodelElementCollection
+            (SubmodelElementCollection result, int sampleNumber, Object sampledate, int partcounter) {
         List<Property> properties = new ArrayList<>();
         properties.add(new Property("SampleNumber", sampleNumber));
         properties.add(new Property("SampleDate", sampledate));
@@ -61,7 +61,8 @@ public class QualityData {
         return SampleData;
     }
 
-    public static SubmodelElementCollection createSampleBatchSubmodelElementCollection(SubmodelElementCollection SampleData, int sampleSize) {
+    public static SubmodelElementCollection createSampleBatchSubmodelElementCollection
+            (SubmodelElementCollection SampleData, int sampleSize) {
         List<Property> properties = new ArrayList<>();
         properties.add(new Property("SampleSize", sampleSize));
 
@@ -76,7 +77,10 @@ public class QualityData {
         return SampleBatch;
     }
 
-    public static SubmodelElementCollection createQualityFeatureNameSubmodelElementCollection(SubmodelElementCollection SampleBatch, String featureType, String function, String unit, int targetValue, int tolerance, int warningLimit, int controlLimit, SubmodelElementCollection References, String inspectionEquipment) {
+    public static SubmodelElementCollection createQualityFeatureNameSubmodelElementCollection
+            (SubmodelElementCollection SampleBatch, String featureType, String function, String unit, double targetValue,
+             double tolerance, double warningLimit, double controlLimit, SubmodelElementCollection References,
+             String inspectionEquipment) {
         List<Property> properties = new ArrayList<>();
         properties.add(new Property("FeatureType", featureType));
         properties.add(new Property("Function", function));
@@ -114,13 +118,18 @@ public class QualityData {
         return References;
     }
 
-    public static SubmodelElementCollection createFeaturesSubmodelElementCollection(SubmodelElementCollection QualityFeaturesName) {
+
+    public static SubmodelElementCollection createFeaturesSubmodelElementCollection
+    (SubmodelElementCollection QualityFeaturesName) {
         SubmodelElementCollection Features = new SubmodelElementCollection("Features");
         Features.addSubmodelElement(QualityFeaturesName);
         return Features;
     }
 
-    public static SubmodelElementCollection createProductionProceduresSubmodelElementCollection(SubmodelElementCollection Features) {
+
+
+    public static SubmodelElementCollection createProductionProceduresSubmodelElementCollection
+            (SubmodelElementCollection Features) {
         List<Property> properties = new ArrayList<>();
         properties.add(new Property("Ressource", "PlatzhalterRessource"));
         properties.add(new Property("Process", "PlatzhalterProcess"));
@@ -136,7 +145,8 @@ public class QualityData {
         return ProductionProcedures;
     }
 
-    public static final Asset QualityDataAsset = new Asset("QualityData", new CustomId("Quality Asset"), AssetKind.INSTANCE);
+    public static final Asset QualityDataAsset = new Asset("QualityData", new CustomId("Quality Asset"),
+            AssetKind.INSTANCE);
 
     public static Submodel createQualityDataSubmodel(SubmodelElementCollection ProductionProcedures) {
         Submodel QualityData = new Submodel();
@@ -152,11 +162,15 @@ public class QualityData {
     }
 
     public static void main(String[] args) {
-        SubmodelElementCollection result = createResultSubmodelElementCollection(10,20/01/2021, 1, 10);
-        SubmodelElementCollection SampleData = createSampleDataSubmodelElementCollection(result, 12344, 20/01/2023, 3);
+        SubmodelElementCollection result = createResultSubmodelElementCollection(10, 20 / 2021,
+                1, 10);
+        SubmodelElementCollection SampleData = createSampleDataSubmodelElementCollection(result, 12344,
+                20 / 2023, 3);
         SubmodelElementCollection SampleBatch = createSampleBatchSubmodelElementCollection(SampleData, 5);
         SubmodelElementCollection References = createReferencesSubmodelElementCollection();
-        SubmodelElementCollection QualityFeatureName = createQualityFeatureNameSubmodelElementCollection(SampleBatch, "Test", "Test", "mm", 10,1, 1, 1, References, "Equipment1");
+        SubmodelElementCollection QualityFeatureName = createQualityFeatureNameSubmodelElementCollection(SampleBatch,
+                "Test", "Test", "mm", 10,1, 1, 1,
+                References, "Equipment1");
         SubmodelElementCollection Features = createFeaturesSubmodelElementCollection(QualityFeatureName);
         SubmodelElementCollection ProductionProcedures = createProductionProceduresSubmodelElementCollection(Features);
         Submodel QualityData = createQualityDataSubmodel(ProductionProcedures);
